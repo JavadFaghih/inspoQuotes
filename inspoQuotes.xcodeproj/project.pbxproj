@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D2988E6243670DF00714930 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2988E5243670DF00714930 /* AppDelegate.swift */; };
 		4D2988E8243670DF00714930 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2988E7243670DF00714930 /* SceneDelegate.swift */; };
-		4D2988EA243670DF00714930 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2988E9243670DF00714930 /* ViewController.swift */; };
+		4D2988EA243670DF00714930 /* QuotoesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2988E9243670DF00714930 /* QuotoesTableViewController.swift */; };
 		4D2988ED243670DF00714930 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2988EB243670DF00714930 /* Main.storyboard */; };
 		4D2988EF243670E000714930 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2988EE243670E000714930 /* Assets.xcassets */; };
 		4D2988F2243670E000714930 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2988F0243670E000714930 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		4D2988E2243670DF00714930 /* inspoQuotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inspoQuotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2988E5243670DF00714930 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D2988E7243670DF00714930 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4D2988E9243670DF00714930 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D2988E9243670DF00714930 /* QuotoesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotoesTableViewController.swift; sourceTree = "<group>"; };
 		4D2988EC243670DF00714930 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D2988EE243670E000714930 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D2988F1243670E000714930 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 			children = (
 				4D2988E5243670DF00714930 /* AppDelegate.swift */,
 				4D2988E7243670DF00714930 /* SceneDelegate.swift */,
-				4D2988E9243670DF00714930 /* ViewController.swift */,
+				4D2988E9243670DF00714930 /* QuotoesTableViewController.swift */,
 				4D2988EB243670DF00714930 /* Main.storyboard */,
 				4D2988EE243670E000714930 /* Assets.xcassets */,
 				4D2988F0243670E000714930 /* LaunchScreen.storyboard */,
@@ -138,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D2988EA243670DF00714930 /* ViewController.swift in Sources */,
+				4D2988EA243670DF00714930 /* QuotoesTableViewController.swift in Sources */,
 				4D2988E6243670DF00714930 /* AppDelegate.swift in Sources */,
 				4D2988E8243670DF00714930 /* SceneDelegate.swift in Sources */,
 			);
@@ -287,6 +287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2SP9RY5F98;
 				INFOPLIST_FILE = inspoQuotes/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +306,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2SP9RY5F98;
 				INFOPLIST_FILE = inspoQuotes/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
