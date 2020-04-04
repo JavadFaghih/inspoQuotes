@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import StoreKit
 
 
-class QuotoesTableViewController: UITableViewController, SKPaymentTransactionObserver {
+
+class QuotoesTableViewController: UITableViewController{
   
     
 
@@ -40,148 +40,17 @@ class QuotoesTableViewController: UITableViewController, SKPaymentTransactionObs
     override func viewDidLoad() {
         super.viewDidLoad()
   
-        SKPaymentQueue.default().add(self)
-        
-        if isPurscassed() {
-            showPremiumQuotes()
-        } else {
-            
-        }
+      
         
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isPurscassed() {
-            return quotoesToShow.count
-        } else {
-            return quotoesToShow.count + 1
-        }
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "QuotoesCell", for: indexPath)
-    
-        if indexPath.row < quotoesToShow.count {
-        
-        cell.textLabel?.text = quotoesToShow[indexPath.row]
-        cell.textLabel?.numberOfLines = 0
-            cell.textLabel?.textColor = .black
-            cell.accessoryType = .none
-        } else {
-            cell.textLabel?.text = "get more quotes"
-            cell.textLabel?.textColor = .blue
-            cell.accessoryType = .disclosureIndicator
-            
-        }
   
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == quotoesToShow.count {
-            buyPremiumQuotes()
-             
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    
-    
-    
-   
-    
-    //MARK: - In App Purchase Methods
-    
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
-            if transaction.transactionState == .purchased {
-                // User Payment Successful
-            
-                SKPaymentQueue.default().finishTransaction(transaction)
-                
-                UserDefaults.standard.set(true, forKey: productID)
-                
-                
-                
-                
-                showPremiumQuotes()
-                
-                print("transaction Successful")
-                
-            } else if transaction.transactionState == .failed {
-                // UserPayment Failed
-
-                if let error = transaction.error {
-                    let errorDescription = error.localizedDescription
-                    print("Transaction failed do to error: \(errorDescription)")
-
-                }
-                
-                SKPaymentQueue.default().finishTransaction(transaction)
-            }
-            else if transaction.transactionState == .restored {
-                
-                showPremiumQuotes()
-                
-                
-                navigationItem.setRightBarButton(nil, animated: true)
-                tableView.reloadData()
-                
-                
-                
-                
-                SKPaymentQueue.default().finishTransaction(transaction)
-                
-            }
-             
-            
-        }
-      }
-    
-    
-    func buyPremiumQuotes() {
-        if SKPaymentQueue.canMakePayments() {
-            // User can make Payments
-            let paymentRequest = SKMutablePayment()
-            paymentRequest.productIdentifier = "com.javadfaghih.inspoQuotes"
-            SKPaymentQueue.default().add(paymentRequest)
-            
-        } else {
-            //User can't make payments
-            print("user can't make payments")
-        }
-    }
-    
-    func showPremiumQuotes() {
-        quotoesToShow.append(contentsOf: premiumQuotoes)
-        tableView.reloadData()
-        
-        
-    }
-    
-    func isPurscassed() -> Bool {
-        
-        let purchaseStatus = UserDefaults.standard.bool(forKey: productID)
-        
-        
-        if purchaseStatus {
-            print("Previousely Purchased")
-            return true
-        } else {
-            print("print never purchased")
-            return false
-        }
-        
-        
-    }
     
     
     @IBAction func restorePressed(_ sender: UIBarButtonItem) {
-        
-        SKPaymentQueue.default().restoreCompletedTransactions()
-        
+
+
+
        }
     
     
