@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import StoreKit
 
 
-
-class QuotoesTableViewController: UITableViewController{
+class QuotoesTableViewController: UITableViewController, SKPaymentTransactionObserver{
+  
   
     
-
+    
+    
     let productID = "com.javadfaghih.inspoQuotes"
     
     
@@ -30,29 +32,166 @@ class QuotoesTableViewController: UITableViewController{
     "there is only one thing that make a dream impossible to achieve, the fear of failure. - Paulo Cuelho",
     "its not whether you get knokted down, It's Whether you gets up. - Vince Lombardi",
     "your tue success in life begins only when you make the commitment to become excellent at what you are do. - Brain Tracy", "Belive in yourself take on your Challenges, di deep within yourself to conquers fears, never let anyone bring you down. you got to keep going. - Chantal Suther Land"]
-    
-    
-    
-    
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
   
-      
+        
+//        if  UserDefaults.standard.bool(forKey: productID) {
+//            ShowPremiumQuotes()
+//        }
+//
+        SKPaymentQueue.default().add(self)
+        
+        if isPurchased() {
+            ShowPremiumQuotes()
+        }
         
     }
 
+    
+    //MARK: - Table View DataSource
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isPurchased() {
+            return quotoesToShow.count
+        } else {
+            return quotoesToShow.count + 1
+
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "QuotoesCell", for: indexPath)
+      
+        if indexPath.row < quotoesToShow.count {
+        cell.textLabel?.text = quotoesToShow[indexPath.row]
+        cell.textLabel?.numberOfLines = 0
+            cell.accessoryType = .none
+                       cell.textLabel?.textColor = .black
+        }
+        else  {
+            cell.textLabel?.text =  "get more qoutes"
+            cell.accessoryType = .disclosureIndicator
+            cell.textLabel?.textColor = #colorLiteral(red: 0.1486158073, green: 0.6314113736, blue: 0.7253969312, alpha: 1)
+            
+        }
+        return cell
+        
+        
+    }
+    
+    
+    //MARK: TableView Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == quotoesToShow.count {
+//            allowShowNewQuotes()
+//            tableView.reloadData()
+            
+        }
+        
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        
+        
+        
+    }
+    
+    //MARK: In App Purchase Methods
+    
+    func buyPremiumQuotes() {
+        if  SKPaymentQueue.canMakePayments() {
+           // user can make payments
+            
+            let paymentRequest = SKMutablePayment()
+            paymentRequest.productIdentifier = productID
+            SKPaymentQueue.default().add(paymentRequest)
+            
+            
+        } else {
+            // can't make payments
+            print("user can't make payments")
+            
+        }
+        
+        
+    }
+    
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            if transaction.transactionState == .purchased {
+                // user payment successful
+                print("transaction successful")
+                
+                UserDefaults.standard.set(true, forKey: productID)
+                
+                
+                ShowPremiumQuotes()
+                SKPaymentQueue.default().finishTransaction(transaction)
+                
+                
+            } else if transaction.transactionState == .failed {
+                // payment failed
+                
+                if let error = transaction.error {
+                    let errorDescription = error.localizedDescription
+                    print("transaction failed due to error \(error)")
+
+                } else if transaction.transactionState == .restored {
+                    ShowPremiumQuotes()
+                 
+                    navigationItem.setRightBarButton(nil, animated: true)
+                    
+                    tableView.reloadData()
+                    SKPaymentQueue.default().finishTransaction(transaction)
+                }
+                
+                
+                
+                   SKPaymentQueue.default().finishTransaction(transaction)
+            }
+        }
+      }
+      
+    
+    
+    
+  func  ShowPremiumQuotes() {
+        quotoesToShow.append(contentsOf: premiumQuotoes)
+    }
+    
+    
   
+    
+ 
+    
+    
+    func isPurchased() -> Bool {
+        let purchaseStatus = UserDefaults.standard.bool(forKey: productID)
+                
+        if purchaseStatus {
+                print("previously purchased")
+            return true
+        } else {
+           
+            print("never purchased")
+            return false
+        }
+      
+        
+    }
     
     
     @IBAction func restorePressed(_ sender: UIBarButtonItem) {
+        SKPaymentQueue.default().restoreCompletedTransactions()
 
 
-
-       }
-    
-    
+        }
 }
 
